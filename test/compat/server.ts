@@ -71,6 +71,7 @@ async function waitForHealth(baseUrl: string, timeoutMs = 15_000): Promise<void>
  */
 export async function startCompatServer(): Promise<CompatServer | null> {
   const pythonBin = process.env.AMP_COMMUNITY_PYTHON || 'python3';
+  const required = process.env.AMP_COMPAT_REQUIRED === '1';
   const dir = mkdtempSync(join(tmpdir(), 'amp-sdk-ts-compat-'));
   const dbPath = join(dir, 'amp.db');
   const policyDir = join(dir, 'policies');
@@ -96,6 +97,7 @@ export async function startCompatServer(): Promise<CompatServer | null> {
       stdio: ['ignore', 'pipe', 'pipe'],
     });
   } catch (err) {
+    if (required) throw err;
     console.warn(`[compat] failed to spawn ${pythonBin}: ${err}`);
     return null;
   }
@@ -114,8 +116,9 @@ export async function startCompatServer(): Promise<CompatServer | null> {
       exited.then((code) => { throw new Error(`server process exited early (code ${code}): ${stderr}`); }),
     ]);
   } catch (err) {
-    console.warn(`[compat] amp-community did not become healthy: ${err}`);
     try { child.kill(); } catch { /* ignore */ }
+    if (required) throw err;
+    console.warn(`[compat] amp-community did not become healthy: ${err}`);
     return null;
   }
 
