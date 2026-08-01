@@ -1,0 +1,56 @@
+{
+  "name": "@amp/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the AMP Community governance API (experimental v0 contract)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "test:unit": "node --import tsx --test test/unit/*.test.ts",
+    "test:compat": "node --import tsx --test test/compat/*.test.ts",
+    "test": "npm run test:unit",
+    "prepack": "npm run clean && npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "tsx": "^4.19.2",
+    "@types/node": "^20.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inquiryon/amp-sdk-ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "keywords": [
+    "amp",
+    "governance",
+    "hitl",
+    "policy",
+    "human-in-the-loop"
+  ]
+}
