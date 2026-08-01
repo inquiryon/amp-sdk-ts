@@ -1,0 +1,85 @@
+# CI for amp-sdk-ts (OSS-006).
+#
+# Requires no private repositories, private services, or production
+# secrets: the live-compat job installs amp-core/amp-community from the
+# public PyPI packages once published; until then it is allowed to fail
+# softly (continue-on-error) rather than block this repo's own CI, since
+# those packages are not yet published (see README.md "Publication status").
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['18.17', '20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - name: Type check
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm run test:unit
+      - name: Build
+        run: npm run build
+
+  live-compat:
+    runs-on: ubuntu-latest
+    continue-on-error: true # amp-community is not yet published; see README.md
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - name: Install amp-core/amp-community
+        run: pip install inquiryon-amp-core inquiryon-amp-community
+      - name: Live compatibility scenarios
+        run: npm run test:compat
+        env:
+          AMP_COMMUNITY_PYTHON: python3
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - name: Build package
+        run: npm run build
+      - name: Pack and inspect contents
+        run: |
+          npm pack
+          tar tzf amp-sdk-*.tgz | sort > /tmp/pack-contents.txt
+          cat /tmp/pack-contents.txt
+          # Fail if anything beyond the declared "files" allowlist sneaks in.
+          if grep -vE '^package/(dist/|LICENSE|NOTICE|README\.md|CHANGELOG\.md|package\.json)' /tmp/pack-contents.txt; then
+            echo "::error::unexpected file(s) in npm package"
+            exit 1
+          fi
+      - name: Install from packed tarball in a clean project
+        run: |
+          mkdir -p /tmp/install-test && cd /tmp/install-test
+          npm init -y
+          npm install $GITHUB_WORKSPACE/amp-sdk-*.tgz
+          node -e "const {AmpClient} = require('@amp/sdk'); console.log(typeof AmpClient)" --input-type=module 2>/dev/null || \
+          node --input-type=module -e "import {AmpClient} from '@amp/sdk'; console.log(typeof AmpClient)"
+      - name: Dependency/license audit
+        run: |
+          npm ls --omit=dev --all
+          npm audit --omit=dev || true
+
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Release hygiene checks (secrets, forbidden files, markers, dependency directories)
+        run: bash scripts/check_release_hygiene.sh .
