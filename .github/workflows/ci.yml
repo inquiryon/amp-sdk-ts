@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['18.17', '20', '22']
+        # engines declares >=18.17 for consumers (they never invoke the test
+        # tooling below), but node --test --import needs 18.19+ — CI tests
+        # the oldest version the *dev toolchain* actually supports.
+        node-version: ['18.19', '20', '22']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
