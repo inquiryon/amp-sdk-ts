@@ -1,5 +1,5 @@
 {
-  "name": "@amp/sdk",
+  "name": "@inquiryon/sdk",
   "version": "0.1.0",
   "description": "TypeScript SDK for the AMP Community governance API (experimental v0 contract)",
   "license": "Apache-2.0",

@@ -43,7 +43,7 @@ implementation for testing or non-standard environments.
 ## Install
 
 ```bash
-npm install @amp/sdk
+npm install @inquiryon/sdk
 ```
 
 (Not yet published to npm — see [Publication status](#publication-status).
@@ -63,7 +63,7 @@ CommonJS build). Rationale:
   a real risk for a package whose typed error hierarchy is a core
   feature.
 - CommonJS consumers on Node >=18.17 can still use this package via a
-  dynamic `import()` (`const { AmpClient } = await import('@amp/sdk')`),
+  dynamic `import()` (`const { AmpClient } = await import('@inquiryon/sdk')`),
   which works from a `.cjs` file or a `require`-based project without any
   transpilation.
 
@@ -74,7 +74,7 @@ addition, not a breaking change — see the versioning policy.
 ## Quickstart
 
 ```ts
-import { AmpClient } from '@amp/sdk';
+import { AmpClient } from '@inquiryon/sdk';
 
 const client = new AmpClient({
   baseUrl: 'http://127.0.0.1:8080',
@@ -118,7 +118,7 @@ Every failure is a typed subclass of `AmpError` carrying the HTTP status
 retryable, and bounded structured details:
 
 ```ts
-import { NotFoundError, ConflictError, ValidationError } from '@amp/sdk';
+import { NotFoundError, ConflictError, ValidationError } from '@inquiryon/sdk';
 
 try {
   await client.getReview('hitl-does-not-exist');

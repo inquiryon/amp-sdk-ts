@@ -87,8 +87,8 @@ jobs:
           mkdir -p /tmp/install-test && cd /tmp/install-test
           npm init -y
           npm install $GITHUB_WORKSPACE/amp-sdk-*.tgz
-          node -e "const {AmpClient} = require('@amp/sdk'); console.log(typeof AmpClient)" --input-type=module 2>/dev/null || \
-          node --input-type=module -e "import {AmpClient} from '@amp/sdk'; console.log(typeof AmpClient)"
+          node -e "const {AmpClient} = require('@inquiryon/sdk'); console.log(typeof AmpClient)" --input-type=module 2>/dev/null || \
+          node --input-type=module -e "import {AmpClient} from '@inquiryon/sdk'; console.log(typeof AmpClient)"
       - name: Dependency/license audit
         run: |
           npm ls --omit=dev --all

@@ -92,7 +92,7 @@ export async function startCompatServer(): Promise<CompatServer | null> {
 
   let child: ChildProcessByStdio<null, Readable, Readable>;
   try {
-    child = spawn(pythonBin, ['-m', 'amp_community.api', '--config', configPath], {
+    child = spawn(pythonBin, ['-m', 'inquiryon_amp_community.api', '--config', configPath], {
       stdio: ['ignore', 'pipe', 'pipe'],
     });
   } catch (err) {
