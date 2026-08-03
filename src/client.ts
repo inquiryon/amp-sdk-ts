@@ -15,7 +15,7 @@ import {
 } from './retry.js';
 
 export const SDK_VERSION = '0.1.0';
-export const DEFAULT_USER_AGENT = `amp-sdk-ts/${SDK_VERSION}`;
+export const DEFAULT_USER_AGENT = `inquiryon-amp-sdk-ts/${SDK_VERSION}`;
 
 /** Hard cap on response bytes read into memory, regardless of Content-Length. */
 const MAX_RESPONSE_BYTES = 10 * 1024 * 1024; // 10 MiB
