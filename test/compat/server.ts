@@ -1,8 +1,7 @@
 /**
  * Spawns a REAL amp-community server as a child process for the shared
- * live compatibility scenarios (oss-release/phase-5/compat-scenarios.md).
- * Not a mock — this is the same server the Python SDK's compat suite
- * talks to.
+ * live compatibility scenarios. Not a mock — this is the same server the
+ * Python SDK's compat suite talks to.
  *
  * Requires a Python interpreter with amp-core and amp-community
  * installed. Resolution order: $AMP_COMMUNITY_PYTHON, then `python3` on

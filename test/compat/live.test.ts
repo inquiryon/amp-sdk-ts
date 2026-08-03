@@ -1,9 +1,8 @@
 /**
  * Shared live compatibility scenarios, run against a REAL amp-community
- * server (not a mock). See oss-release/phase-5/compat-scenarios.md in the
- * umbrella workspace for the scenario definitions this file implements —
- * the Python SDK's tests/compat/test_live.py implements the identical
- * scenarios against the same contract. All data is fictional.
+ * server (not a mock). The Python SDK's tests/compat/test_live.py
+ * implements the identical scenarios against the same contract. All data
+ * is fictional.
  *
  * Run: npm run test:compat (requires a Python interpreter with
  * amp-core/amp-community installed; set AMP_COMMUNITY_PYTHON if it is not
