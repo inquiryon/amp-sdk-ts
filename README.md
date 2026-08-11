@@ -15,20 +15,14 @@ A small, typed client for the `amp-community` REST API (the "SDK
 compatibility boundary" served at `/api/v0/openapi.json`). It exposes
 exactly the operations documented in that OpenAPI contract: evaluate a
 policy, submit a governed request, poll or wait for a decision,
-list/approve/reject/modify HITL reviews, check/retry callback delivery,
-and query the audit log.
+list/approve/reject/modify HITL reviews, check/retry callback delivery, and query the audit log.
 
 ## What this SDK is not
 
-- **Not** a client for any Enterprise-only capability: RLHF/training,
+- **Not** a client for any Enterprise-only capability: RLHF/model training,
   model promotion, proprietary scoring, billing, organizations, SaaS
   auth, or private analytics. None of these exist in the public contract,
   so there is nothing here to call.
-- **Not** the legacy `amp-sdk` package. That package is a separate,
-  private/legacy compatibility client (CommonJS, filesystem/polling
-  assumptions specific to one deployment) and is not a predecessor this
-  package extends — this is a clean rewrite against the stabilized public
-  contract.
 - **Not** an agent runtime. This package makes HTTP calls and returns
   typed results; it does not manage agent processes, filesystem instance
   folders, or background polling loops beyond the one opt-in
@@ -160,8 +154,7 @@ the full policy and its rationale.
 This package is `0.1.0`, tracking the `v0` API contract.
 During `0.x`, any change to request/response shapes, error classification,
 or retry semantics may ship in a minor version and will be called out
-under **Breaking** in `CHANGELOG.md`. **No v1.0 stability is declared or
-implied by this package.**
+under **Breaking** in `CHANGELOG.md`.
 
 ## Publication status
 
