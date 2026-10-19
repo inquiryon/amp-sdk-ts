@@ -1,7 +1,7 @@
 {
   "name": "@inquiryon/sdk",
   "version": "0.1.0",
-  "description": "TypeScript SDK for the AMP Community governance API (experimental v0 contract)",
+  "description": "TypeScript SDK for the AMP Community governance API",
   "license": "Apache-2.0",
   "type": "module",
   "engines": {

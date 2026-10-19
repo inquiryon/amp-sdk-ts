@@ -6,8 +6,7 @@ delivery, and audit-history queries.
 
 Implements the `v0` API contract. See
 [the versioning policy](#versioning-policy) before depending on this in
-production, and [Publication status](#publication-status) for install
-instructions.
+production.
 
 ## What this SDK is
 
@@ -40,10 +39,6 @@ implementation for testing or non-standard environments.
 ```bash
 npm install @inquiryon/sdk
 ```
-
-(Not yet published to npm — see [Publication status](#publication-status).
-Until then, install from a local path or tarball: `npm install
-../amp-sdk-ts` or `npm install ./amp-sdk-ts-0.1.0.tgz`.)
 
 ## Module format: ESM-only (documented CommonJS decision)
 
@@ -155,14 +150,6 @@ This package is `0.1.0`, tracking the `v0` API contract.
 During `0.x`, any change to request/response shapes, error classification,
 or retry semantics may ship in a minor version and will be called out
 under **Breaking** in `CHANGELOG.md`.
-
-## Publication status
-
-**Implementation complete; publication pending.** This package builds and
-tests reproducibly locally (see `CONTRIBUTING.md`) but has not been
-published to the npm registry, and no GitHub repository has been created
-for it — see `workitems/OSS-006-sdks-and-examples.md` in the umbrella
-workspace for the exact gates remaining before publication.
 
 ## License
 
